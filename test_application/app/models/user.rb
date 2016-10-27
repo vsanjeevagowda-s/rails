@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 	attr_accessor :password_temp1
+	validates :first_name, :last_name, :email, presence: true
   before_save :encrypt_password
 
 
