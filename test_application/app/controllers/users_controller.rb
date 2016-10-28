@@ -8,9 +8,18 @@ class UsersController < ApplicationController
   end
 
   def create
+    binding.pry
+
   	@user=User.new(user_params)
-  	@user.save
-  	redirect_to users_list_path
+    if @user.save
+
+
+    binding.pry
+    redirect_to users_list_path
+  else
+    render 'new'
+  end
+
   end
 
   def edit
@@ -30,9 +39,16 @@ class UsersController < ApplicationController
  	
  end
 
+ def show
+ @user=User.find_by_id(params[:id])
+   
+ end
+
 
   private
   def user_params
+
+    binding.pry
   	params.require(:user).permit(:first_name,:last_name,:email,:password)
   	
   end

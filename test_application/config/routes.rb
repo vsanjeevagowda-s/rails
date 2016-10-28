@@ -15,9 +15,19 @@ Rails.application.routes.draw do
 
   get "/user/:id/edit" => "users#edit", as: :user_edit
 
+  get "/user/:id/show" => "users#show", as: :user_show
+
    put "/user/:id/edit" => "users#update", as: :user_update
 
    delete "/user/:id" => "users#destroy", as: :user_delete
+
+   ############################################################3
+
+    get "/project/new" => "projects#new", as: :project_new
+
+    post "/project/new" => "projects#create", as: :project_create
+
+    get "/project/list" =>"projects#create", as: :projects_list
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,14 +1,19 @@
 class User < ActiveRecord::Base
-	attr_accessor :password_temp1
-	validates :first_name, :last_name, :email, presence: true
-  before_save :encrypt_password
+has_many :projects, through: :user_projects
+	PASSWORD_FORMAT = /\A(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[[:^alnum:]])/
+	validates :first_name,  presence: true
+	validates :last_name,  presence: true
+	validates :email,  presence: { message: "must be given please" }
+	validates_uniqueness_of :email
+
+validates :password,  presence: true,   format: {with: PASSWORD_FORMAT},   confirmation: true,   on: :create 
 
 
-  def encrypt_password
-    if password.present?
-      password_temp1 = BCrypt::Engine.generate_salt
-      self.password = BCrypt::Engine.hash_secret(password, password_temp1)
-    end
-  end
+	
+
+	has_secure_password
+
+	
+
 
 end
